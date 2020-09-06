@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Profil</title>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+th:href="@{/css/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/myStyle.css"
+th:href="@{/css/myStyle.css}"/>
+</head>
+<body th:style="'background-image:url(' + @{/images/site-belfort.jpg} + ');'">
+	<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3" style="opacity: 0.8;filter: alpha(opacity=60)">
+		<div class="panel panel-default">
+			<div class="panel-heading">Edit Profil</div>
+			<div class="panel-body">
+				<form th:action="@{saveEtudiant}" method="post" th:object=${etudiant} enctype="multipart/form-data">
+					<div class="form-group" style="display: none;">
+						<label class="control-label">Id: </label>
+						<input type="text" th:field="*{id}" class="form-control">
+						<span class="text-danger" th:errors="*{id}"></span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Prenom: </label>
+						<input type="text" th:field="*{prenom}" class="form-control">
+						<span class="text-danger" th:errors="*{prenom}"></span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Email: </label>
+						<input type="text" th:field="*{mail}" class="form-control"/>
+						<span class="text-danger" th:errors="*{mail}"></span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Password: </label>
+						<input type="password" th:field="${etudiant.password}" class="form-control"/>
+						<span class="text-danger" th:errors="*{password}"></span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Téléphone: </label>
+						<input type="text" th:field="*{tel}" class="form-control"/>
+						<span class="text-danger" th:errors="*{tel}"></span>
+					</div>
+					
+					<div>
+						<button type="submit" class="btn btn-primary" onclick="return confirm('Etes vous sure?')">Save</button>
+						<button class="btn btn-link" style="right: left"><a th:href="@{/index.html}">Cancel</a></button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

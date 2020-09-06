@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Edit</title>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+th:href="@{/css/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/myStyle.css"
+th:href="@{/css/myStyle.css}"/>
+</head>
+<body th:style="'background-image:url(' + @{/images/site-belfort.jpg} + ');'">
+	<div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3" style="opacity: 0.8;filter: alpha(opacity=60)">
+		<div class="panel panel-default">
+			<div class="panel-heading">Modifier d'une annonce</div>
+			<div class="panel-body">
+				<form th:action="@{updatProduit}" method="post" th:object=${produit} enctype="multipart/form-data">
+					<div class="form-group" style="display:none">
+						<label class="control-label">ID: </label>
+						<input type="text" th:field="*{id}" class="form-control"/>
+						
+					</div>
+					<div class="form-group">
+						<label class="control-label">Titre: </label>
+						<input type="text" th:field="*{title}" class="form-control"/>
+						<span class="text-danger" th:errors="*{title}"></span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Description: </label>
+						<textarea row="4" col="70" th:field="*{designation}" class="form-control"></textarea>
+						<span class="text-danger" th:errors="*{designation}"></span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Prix: </label>
+						<input type="text" th:field="*{prix}" class="form-control"/>
+						<span class="text-danger" th:errors="*{prix}"></span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Ville: </label>
+						<input type="text" th:field="*{ville}" class="form-control"/>
+						<span class="text-danger" th:errors="*{ville}"></span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Type: </label>
+						
+						 	<select th:field="*{type}">
+	                         	<option value=""> -- </option>
+	                         	<option th:each="e : ${types}"
+	                            th:value="${e.id}"
+	                            th:utext="${e.nom_type}"/>
+							</select>
+						
+						<span class="text-danger" th:errors="${produit.type}"></span>
+					</div>
+					<div class="form-group" th:object=${photo}>
+						<label class="control-label">Photo: </label>
+						
+						<br>
+
+						<img id="myImg"  th:src="@{getPhoto(id=${produit.id})}" alt="your image" height=100px width=100px />
+						<img  th:each="e:${photos}" th:src="@{getPhoto(id=${e.id})}" th:id="'myImg' + ${e.id}"th:onclick="|afficher('${e.id}')|" alt="your image"  height=100px width=100px />
+						<span ></span>
+					</div>
+					<div>
+						<button type="submit" class="btn btn-primary">Save</button>
+						<button class="btn btn-link" style="right: left"><a th:href="@{/index.html}">Cancel</a></button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<script>
+var image;
+var fileSelector = document.createElement('input');
+fileSelector.setAttribute('type', 'file');
+fileSelector.setAttribute('id', 'file');
+window.addEventListener('load', function() {
+	fileSelector.addEventListener('change', function() {
+		  
+	      if (this.files && this.files[0]) {
+	          var img = document.querySelector('#myImg'+image); 
+	          img.src = URL.createObjectURL(this.files[0]); 
+	          img.onload = imageIsLoaded; 
+	      }
+	  });
+	});
+
+	function imageIsLoaded(e) { }
+
+	
+	function afficher(a){
+		image=a;
+		fileSelector.click();
+
+	     ;
+	}
+</script>
+</body>
+</html>
