@@ -27,25 +27,25 @@ public class GestionAnnoncesApplication {
 	public static void main(String[] args) {
 		ApplicationContext ctx=SpringApplication.run(GestionAnnoncesApplication.class, args);
 		EtudiantRepository etudiantRepository=ctx.getBean(EtudiantRepository.class);
-/*		ProduitRepository produitRepository=ctx.getBean(ProduitRepository.class);
-		
-		typeRepository.save(new Type("GHTA"));
-		
-		etudiantRepository.save(new Etudiant("zakaria", "0769117954"
-				, "najizakaria96@gmail.com", "1234", r));*/
 		TypeRepository typeRepository=ctx.getBean(TypeRepository.class);
 		typeRepository.save(new Type("voiture"));
 		typeRepository.save(new Type("Immobillier"));
 		typeRepository.save(new Type("Telephone"));
 		typeRepository.save(new Type("Livres"));
+		typeRepository.save(new Type("accessoire"));
+		typeRepository.save(new Type("vetement"));
+
 		RoleRepository roleRepository=ctx.getBean(RoleRepository.class);
 		Role r=new Role("ADMIN", "");
 		roleRepository.save(r);
-		roleRepository.save(new Role("USER", ""));
-		MessageRepository messageRepository=ctx.getBean(MessageRepository.class);
-		
+		Role roleUser = new Role("USER", "");
+		roleRepository.save(roleUser);
+
+		etudiantRepository.save(new Etudiant("mohammed", "+212671617999", "dars930@gmail.com", "1234", roleUser));
+		etudiantRepository.save(new Etudiant("zakaria", "+212646256126", "najizakaria96@gmail.com", "123455", roleUser));
+
+
 	}
-	
+
 
 }
-
